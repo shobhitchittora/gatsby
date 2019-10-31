@@ -7,8 +7,7 @@ const imageminMozjpeg = require(`imagemin-mozjpeg`)
 const imageminPngquant = require(`imagemin-pngquant`)
 const imageminWebp = require(`imagemin-webp`)
 const _ = require(`lodash`)
-const crypto = require(`crypto`)
-const { cpuCoreCount } = require(`gatsby-core-utils`)
+const { cpuCoreCount, createContentDigest } = require(`gatsby-core-utils`)
 const got = require(`got`)
 
 // Try to enable the use of SIMD instructions. Seems to provide a smallish
@@ -68,7 +67,7 @@ const argsWhitelist = [
  * @param {String} file
  * @param {Transform[]} transforms
  */
-exports.processFile = (file, transforms, options = {}) => {
+exports.processFile = (file, contentDigest, transforms, options = {}) => {
   let pipeline
   try {
     // adds gatsby cloud image service to gatsby-sharp
@@ -82,6 +81,7 @@ exports.processFile = (file, transforms, options = {}) => {
             .post(process.env.GATSBY_CLOUD_IMAGE_SERVICE_URL, {
               body: {
                 file,
+                hash: contentDigest,
                 transforms,
                 options,
               },
@@ -260,10 +260,7 @@ exports.createArgsDigest = args => {
     return argsWhitelist.includes(key)
   })
 
-  const argsDigest = crypto
-    .createHash(`md5`)
-    .update(JSON.stringify(sortKeys(filtered)))
-    .digest(`hex`)
+  const argsDigest = createContentDigest(sortKeys(filtered))
 
   const argsDigestShort = argsDigest.substr(argsDigest.length - 5)
 

@@ -52,7 +52,7 @@ This `onCreateNode` function will be called by Gatsby whenever a new node is cre
 Stop and restart the development server. As you do, you'll see quite a few newly
 created nodes get logged to the terminal console.
 
-Use this API to add the slugs for your markdown pages to `MarkdownRemark`
+In the next section, you will use this API to add slugs for your Markdown pages to `MarkdownRemark`
 nodes.
 
 Change your function so it now only logs `MarkdownRemark` nodes.
@@ -112,7 +112,7 @@ Now you can add your new slugs directly onto the `MarkdownRemark` nodes. This is
 powerful, as any data you add to nodes is available to query later with GraphQL.
 So, it'll be easy to get the slug when it comes time to create the pages.
 
-To do so, you'll use a function passed to our API implementation called
+To do so, you'll use a function passed to your API implementation called
 [`createNodeField`](/docs/actions/#createNodeField). This function
 allows you to create additional fields on nodes created by other plugins. Only
 the original creator of a node can directly modify the node—all other plugins
@@ -176,11 +176,11 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 }
 
 // highlight-start
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   // **Note:** The graphql function call returns a Promise
   // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
-  return graphql(`
-    {
+  const result = await graphql(`
+    query {
       allMarkdownRemark {
         edges {
           node {
@@ -191,9 +191,9 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
-    console.log(JSON.stringify(result, null, 4))
-  })
+  `)
+
+  console.log(JSON.stringify(result, null, 4))
 }
 // highlight-end
 ```
@@ -251,10 +251,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions // highlight-line
-  return graphql(`
-    {
+  const result = await graphql(`
+    query {
       allMarkdownRemark {
         edges {
           node {
@@ -265,21 +265,21 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then(result => {
-    // highlight-start
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      createPage({
-        path: node.fields.slug,
-        component: path.resolve(`./src/templates/blog-post.js`),
-        context: {
-          // Data passed to context is available
-          // in page queries as GraphQL variables.
-          slug: node.fields.slug,
-        },
-      })
+  `)
+
+  // highlight-start
+  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    createPage({
+      path: node.fields.slug,
+      component: path.resolve(`./src/templates/blog-post.js`),
+      context: {
+        // Data passed to context is available
+        // in page queries as GraphQL variables.
+        slug: node.fields.slug,
+      },
     })
-    // highlight-end
   })
+  // highlight-end
 }
 ```
 

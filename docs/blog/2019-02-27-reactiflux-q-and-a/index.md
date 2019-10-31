@@ -85,7 +85,7 @@ We're also working on adding [Gatsby Theme support](/blog/2018-11-11-introducing
 
 ---
 
-**Q:** Do you hope or believe that gatsby (and JAM-stack in general), headless CMS's and microservices will overcome rigid and outdated wordpress sites and architecture? — max
+**Q:** Do you hope or believe that gatsby (and JAM-stack in general), headless CMS's and microservices will overcome rigid and outdated WordPress sites and architecture? — max
 
 **A:** Yup! That's why I started [the Gatsby OSS project and company](/blog/2018-05-24-launching-new-gatsby-company/)! CMSs we're designed in the late 1990s and are very outdated for today's cloud/serverless computing environment. We want Gatsby to be able to replace CMSs.
 
@@ -127,7 +127,7 @@ While it's inevitable that bugs come with any platform you choose to build on, G
 
 ---
 
-**Q:** Is there some sort of change list or changelog? I have had problems finding one in the past, for gatsby and it's packages. — Everspace
+**Q:** Is there some sort of change list or changelog? I have had problems finding one in the past, for gatsby and its packages. — Everspace
 
 **A:** There are per-package changelogs maintained in each package, for example [Gatsby's](https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/CHANGELOG.md).
 
@@ -171,7 +171,7 @@ Check it out, and hope it's helpful!
 
 **Q:** What is the most exciting feature you are working right now? — Checkmatez
 
-**A:** I'm very excited about themes right now. With the core functionality (composable gatsby configs and Component Shadowing) merged in as experimental, we can start to build very powerful abstractions for complete documentation sites, marketing sites, ecommerce sites, etc. I'm happy to talk to anyone in more depth about themes at any time either in the community spectrum (https://spectrum.chat/gatsby-themes) or on twitter (https://twitter.com/chrisbiscardi)
+**A:** I'm very excited about themes right now. With the core functionality (composable gatsby configs and Component Shadowing) merged in as experimental, we can start to build very powerful abstractions for complete documentation sites, marketing sites, ecommerce sites, etc. I'm happy to talk to anyone in more depth about themes at any time either in the community spectrum (https://spectrum.chat/gatsby-themes) or on Twitter (https://twitter.com/chrisbiscardi)
 
 A Gatsby email _application_. Contribute to DSchau/gatsby-mail development by creating an account on GitHub.
 
@@ -223,7 +223,7 @@ P.S. Gatsby is hiring worldwide for OSS Maintainers
 
 **Q:** What is one thing that Gatsby is capable of doing that might surprise some people? — ctlee
 
-**A:** Gatsby can be used to build fully dynamic sites, which surprises some people because of it's label as a "static site generator". It's fully equipped to be a powerful alternative to create-react-app and other similar solutions with the addition of easy pre-rendering and perf baked in.
+**A:** Gatsby can be used to build fully dynamic sites, which surprises some people because of its label as a "static site generator". It's fully equipped to be a powerful alternative to create-react-app and other similar solutions with the addition of easy pre-rendering and perf baked in.
 
 — biscarch
 

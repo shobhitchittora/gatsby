@@ -27,16 +27,26 @@ module.exports.build = async ({ parentSpan }) => {
   })
 
   const {
-    schemaCustomization: { thirdPartySchemas, types, fieldExtensions },
+    schemaCustomization: {
+      thirdPartySchemas,
+      types,
+      fieldExtensions,
+      printConfig,
+    },
     config: { mapping: typeMapping },
   } = store.getState()
 
   const typeConflictReporter = new TypeConflictReporter()
 
   // Ensure that user-defined types are processed last
-  const sortedTypes = types.sort(
-    type => type.plugin && type.plugin.name === `default-site-plugin`
-  )
+  const sortedTypes = [
+    ...types.filter(
+      type => type.plugin && type.plugin.name !== `default-site-plugin`
+    ),
+    ...types.filter(
+      type => !type.plugin || type.plugin.name === `default-site-plugin`
+    ),
+  ]
 
   const schemaComposer = createSchemaComposer({ fieldExtensions })
   const schema = await buildSchema({
@@ -46,6 +56,7 @@ module.exports.build = async ({ parentSpan }) => {
     fieldExtensions,
     thirdPartySchemas,
     typeMapping,
+    printConfig,
     typeConflictReporter,
     parentSpan,
   })

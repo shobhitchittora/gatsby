@@ -93,7 +93,7 @@ Now add `gatsby`, `react`, `react-dom`, and `gatsby-theme-events` as dependencie
 yarn workspace site add gatsby react react-dom gatsby-theme-events@*
 ```
 
-> 🚨 If you use [zsh](https://en.wikipedia.org/wiki/Z_shell), the `*` needs to be quoted, e.g. `gatsby-theme-events@"*"` or `"gatsby-theme-events@*`.
+> 🚨 If you use [zsh](https://en.wikipedia.org/wiki/Z_shell), the `*` needs to be quoted, e.g. `gatsby-theme-events@"*"` or `"gatsby-theme-events@*"`.
 
 - When you run `yarn workspace site`, it's as if you were running that command while in the `/site` directory. The dependencies will be added to `site`, even though you're not in the `site` directory.
 - You're installing `gatsby-theme-events@*`, because you need the workspace to reference the unpublished `gatsby-theme-events` theme.
@@ -274,7 +274,7 @@ When you execute the query, you should see the GraphQL server successfully retur
 
 Create a `gatsby-node.js` file in `gatsby-theme-events`.
 
-If you fire up our theme, and the "data" directory doesn't exist, `gatsby-source-filesystem` will throw an error. To guard against this, you'll use the `onPreBootstrap` API hook to check if the data directory exists, and, if not, create it:
+If you fire up your theme, and the "data" directory doesn't exist, `gatsby-source-filesystem` will throw an error. To guard against this, you'll use the `onPreBootstrap` API hook to check if the data directory exists, and, if not, create it:
 
 ```javascript:title=gatsby-theme-events/gatsby-node.js
 const fs = require("fs")
@@ -962,6 +962,7 @@ const EventDate = ({ startDate, endDate }) => {
     </>
   )
 }
+// highlight-end
 
 const Event = ({ name, location, url, startDate, endDate }) => (
   <div>
@@ -969,14 +970,15 @@ const Event = ({ name, location, url, startDate, endDate }) => (
       {name} ({location})
     </h2>
     <p>
+      // highlight-start
       <EventDate startDate={startDate} endDate={endDate} />
+      // highlight-end
     </p>
     <p>
       Website: <a href={url}>{url}</a>
     </p>
   </div>
 )
-// highlight-end
 
 export default Event
 ```
@@ -1047,7 +1049,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
 }
 ```
 
-> 💡 Up till now, you've mostly worked in the `gatsby-theme-events` space. Because we've converted the theme to use a function export, we can no longer run the theme on its own. The function export in `gatsby-config.js` is only supported for themes. From now on you'll be running `site` -- the Gatsby site consuming `gatsby-theme-events`, instead. Gatsby sites still require the object export in `gatsby-config.js`.
+> 💡 Up till now, you've mostly worked in the `gatsby-theme-events` space. Because you've converted the theme to use a function export, you can no longer run the theme on its own. The function export in `gatsby-config.js` is only supported for themes. From now on you'll be running `site` -- the Gatsby site consuming `gatsby-theme-events`, instead. Gatsby sites still require the object export in `gatsby-config.js`.
 
 Test out this new options-setting by making some adjustments to `site`.
 

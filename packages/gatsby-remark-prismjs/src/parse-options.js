@@ -9,14 +9,16 @@ module.exports = language => {
     let highlightLines = [],
       outputLines = [],
       showLineNumbersLocal = false,
-      numberLinesStartAt
+      numberLinesStartAt,
+      promptUserLocal,
+      promptHostLocal
     // Options can be given in any order and are optional
 
     options.forEach(option => {
       option = option.slice(0, -1)
       let splitOption = option.replace(/ /g, ``).split(`:`)
 
-      // Test if the option is for line hightlighting
+      // Test if the option is for line highlighting
       if (splitOption.length === 1 && rangeParser.parse(option).length > 0) {
         highlightLines = rangeParser.parse(option).filter(n => n > 0)
       }
@@ -36,6 +38,12 @@ module.exports = language => {
             ? 1
             : parseInt(splitOption[1].trim(), 10)
       }
+      if (splitOption.length === 2 && splitOption[0] === `promptHost`) {
+        promptHostLocal = splitOption[1]
+      }
+      if (splitOption.length === 2 && splitOption[0] === `promptUser`) {
+        promptUserLocal = splitOption[1]
+      }
       if (splitOption.length === 2 && splitOption[0] === `outputLines`) {
         outputLines = rangeParser
           .parse(splitOption[1].trim())
@@ -49,6 +57,8 @@ module.exports = language => {
       showLineNumbersLocal,
       numberLinesStartAt,
       outputLines,
+      promptUserLocal,
+      promptHostLocal,
     }
   }
 

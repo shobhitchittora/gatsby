@@ -305,9 +305,7 @@ module.exports = async ({
    * and packages that depend on `gatsby`
    */
   {
-    let js = (
-      { modulesThatUseGatsby, ...options } = { modulesThatUseGatsby: [] }
-    ) => {
+    let js = ({ modulesThatUseGatsby = [], ...options } = {}) => {
       return {
         test: /\.(js|mjs|jsx)$/,
         include: modulePath => {
@@ -342,9 +340,7 @@ module.exports = async ({
    * Excludes modules that use Gatsby since the `rules.js` already transpiles those
    */
   {
-    let dependencies = (
-      { modulesThatUseGatsby } = { modulesThatUseGatsby: [] }
-    ) => {
+    let dependencies = ({ modulesThatUseGatsby = [] } = {}) => {
       const jsOptions = {
         babelrc: false,
         configFile: false,
@@ -463,7 +459,10 @@ module.exports = async ({
         loaders.css({ ...options, importLoaders: 1 }),
         loaders.postcss({ browsers }),
       ]
-      if (!isSSR) use.unshift(loaders.miniCssExtract({ hmr: !options.modules }))
+      if (!isSSR)
+        use.unshift(
+          loaders.miniCssExtract({ hmr: !PRODUCTION && !options.modules })
+        )
 
       return {
         use,
